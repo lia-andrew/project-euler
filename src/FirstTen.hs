@@ -4,7 +4,8 @@ module FirstTen (
   problem3,
   problem4,
   problem5,
-  problem6) where
+  problem6,
+  problem7) where
 
 import qualified Data.Map as Map
 import qualified Data.Set as Set
@@ -39,3 +40,6 @@ problem5 = product $ map (uncurry (^)) $ Map.toList $ foldr (\x y -> Map.unionWi
 
 problem6 :: Integer
 problem6 = sum [1..100] ^ 2 - sum (map (^2) [1..100])
+
+problem7 :: Integer
+problem7 = primes !! 10000

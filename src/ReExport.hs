@@ -4,6 +4,7 @@ module ReExport (
   problem3,
   problem4,
   problem5,
-  problem6) where
+  problem6,
+  problem7) where
 
 import FirstTen
