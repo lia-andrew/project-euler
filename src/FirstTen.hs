@@ -3,7 +3,8 @@ module FirstTen (
   problem2,
   problem3,
   problem4,
-  problem5) where
+  problem5,
+  problem6) where
 
 import qualified Data.Map as Map
 import qualified Data.Set as Set
@@ -35,3 +36,6 @@ problem5 :: Integer
 problem5 = product $ map (uncurry (^)) $ Map.toList $ foldr (\x y -> Map.unionWith max y $ toMap $ primeFactorize x 2) Map.empty [2..20]
     where
       toMap xs = foldr (\x y -> Map.insert x (length . filter (==x) $ xs) y) Map.empty $ Set.fromList xs
+
+problem6 :: Integer
+problem6 = sum [1..100] ^ 2 - sum (map (^2) [1..100])
