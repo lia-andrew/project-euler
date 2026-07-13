@@ -1,10 +1,7 @@
 module Main where
 
-import ReExport (
-  problem1,
-  problem2
-  )
+import ReExport
 import Prelude (IO, print)
 
 main :: IO ()
-main = print problem2
+main = print problem3
