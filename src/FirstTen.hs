@@ -1,7 +1,8 @@
 module FirstTen (
   problem1,
   problem2,
-  problem3) where
+  problem3,
+  problem4) where
 
 import Data.Bits ((.&.))
 
@@ -29,3 +30,6 @@ problem3 = maximum $ primeFactorize 600851475143 2
       | otherwise = primeFactorize x (y + 1)
       where
         (quotient, modulo) = divMod x y
+
+problem4 :: Integer
+problem4 = maximum [z | x <- [100..999], y <- [100..999], let z = x * y, let a = show z, a == reverse a]
