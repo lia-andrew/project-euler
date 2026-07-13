@@ -6,12 +6,13 @@ module FirstTen (
   problem5,
   problem6,
   problem7,
-  problem8) where
+  problem8,
+  problem9) where
 
-import qualified Data.Map as Map
-import qualified Data.Set as Set
+import qualified Data.Map as Map (empty, insert, toList, unionWith)
+import qualified Data.Set as Set (fromList)
 import Data.Bits ((.&.))
-import Util
+import Util (primeFactorize, primes, problem8Const)
 
 problem1 :: Integer
 problem1 = sum . filter isMultiple . takeWhile (< 1000) $ [1..]
@@ -52,3 +53,6 @@ problem8 = findLargest problem8Const 0
       | null xs = best
       | length xs < 13 = best
       | otherwise = findLargest (tail xs) $ max best $ product $ take 13 xs
+
+problem9 :: Integer
+problem9 = head [x * y * z | x <- [1..1000], y <- [1..1000], x < y, let (integral, fraction) = properFraction $ sqrt $ fromInteger $ (x^2) + y^2, fraction == 0, let z = toInteger integral, x + y + z == 1000]
