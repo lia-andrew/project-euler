@@ -2,9 +2,13 @@ module FirstTen (
   problem1,
   problem2,
   problem3,
-  problem4) where
+  problem4,
+  problem5) where
 
+import qualified Data.Map as Map
+import qualified Data.Set as Set
 import Data.Bits ((.&.))
+import Util
 
 problem1 :: Integer
 problem1 = sum . filter isMultiple . takeWhile (< 1000) $ [1..]
@@ -23,13 +27,11 @@ problem2 = sum $ takeWhile (<= 4000000) $ evenFibonacci 1 1
 
 problem3 :: Integer
 problem3 = maximum $ primeFactorize 600851475143 2
-  where
-    primeFactorize x y
-      | x == 1 = []
-      | modulo == 0 = y : primeFactorize quotient 2
-      | otherwise = primeFactorize x (y + 1)
-      where
-        (quotient, modulo) = divMod x y
 
 problem4 :: Integer
 problem4 = maximum [z | x <- [100..999], y <- [100..999], let z = x * y, let a = show z, a == reverse a]
+
+problem5 :: Integer
+problem5 = product $ map (uncurry (^)) $ Map.toList $ foldr (\x y -> Map.unionWith max y $ toMap $ primeFactorize x 2) Map.empty [2..20]
+    where
+      toMap xs = foldr (\x y -> Map.insert x (length . filter (==x) $ xs) y) Map.empty $ Set.fromList xs

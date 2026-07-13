@@ -4,4 +4,4 @@ import ReExport
 import Prelude (IO, print)
 
 main :: IO ()
-main = print problem4
+main = print problem5
