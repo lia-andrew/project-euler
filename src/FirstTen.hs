@@ -5,7 +5,8 @@ module FirstTen (
   problem4,
   problem5,
   problem6,
-  problem7) where
+  problem7,
+  problem8) where
 
 import qualified Data.Map as Map
 import qualified Data.Set as Set
@@ -43,3 +44,11 @@ problem6 = sum [1..100] ^ 2 - sum (map (^2) [1..100])
 
 problem7 :: Integer
 problem7 = primes !! 10000
+
+problem8 :: Integer
+problem8 = findLargest problem8Const 0
+  where
+    findLargest xs best
+      | null xs = best
+      | length xs < 13 = best
+      | otherwise = findLargest (tail xs) $ max best $ product $ take 13 xs
