@@ -1,3 +1,7 @@
-module ReExport (problem1) where
+module ReExport (
+  problem1,
+  problem2) where
 
-import FirstTen (problem1)
+import FirstTen (
+  problem1,
+  problem2)
