@@ -9,7 +9,7 @@ problem1 :: Integer
 problem1 = sum . filter (\x -> x `mod` 3 == 0 || x `mod` 5 == 0) . takeWhile (< 1000) $ [1..]
 
 problem2 :: Integer
-problem2 = sum . takeWhile (<= 4000000) $ evenFibonacci 1 1
+problem2 = sum . takeWhile (<= 4000000) . evenFibonacci 1 $ 1
   where
     evenFibonacci x y
       | next .&. 1 == 0 = next : recur
@@ -19,13 +19,13 @@ problem2 = sum . takeWhile (<= 4000000) $ evenFibonacci 1 1
         recur = evenFibonacci y next
 
 problem3 :: Integer
-problem3 = maximum $ primeFactorize 600851475143 2
+problem3 = maximum . primeFactorize 2 $ 600851475143
 
 problem4 :: Integer
 problem4 = maximum [z | x <- [100..999], y <- [100..999], let z = x * y, let a = show z, a == reverse a]
 
 problem5 :: Integer
-problem5 = product . map (uncurry (^)) . Map.toList . foldr (\x y -> Map.unionWith max y . toMap . primeFactorize x $ 2) Map.empty $ [2..20]
+problem5 = product . map (uncurry (^)) . Map.toList . foldr (\x y -> Map.unionWith max y . toMap . primeFactorize 2 $ x) Map.empty $ [2..20]
     where
       toMap xs = foldr (\x y -> Map.insert x (length . filter (==x) $ xs) y) Map.empty $ Set.fromList xs
 

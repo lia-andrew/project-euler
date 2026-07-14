@@ -3,12 +3,12 @@ module Util where
 import Data.Char (digitToInt)
 
 primeFactorize :: Integral t => t -> t -> [t]
-primeFactorize x y
-  | x == 1 = []
-  | remainder == 0 = y : primeFactorize quotient 2
-  | otherwise = primeFactorize x (y + 1)
+primeFactorize factor num
+  | num == 1 = []
+  | remainder == 0 = factor : primeFactorize 2 quotient
+  | otherwise = primeFactorize (factor + 1) num
   where
-    (quotient, remainder) = divMod x y
+    (quotient, remainder) = divMod num factor
 
 primes :: Integral t => [t]
 primes = 2 : 3 : 5 : eratosSieve (candidates 1 $ cycle [6, 4, 2, 4, 2, 4, 6, 2])
