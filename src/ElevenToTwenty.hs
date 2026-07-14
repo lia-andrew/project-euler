@@ -1,7 +1,11 @@
-module ElevenToTwenty where
+module ElevenToTwenty (elevenToTwenty) where
 
 import Util (problem11Const, primeFactorize)
 import Data.List (transpose, subsequences, nub)
+import qualified Data.Map as Map (fromList, Map)
+
+elevenToTwenty :: Map.Map String Integer
+elevenToTwenty = Map.fromList [("11", problem11), ("12", problem12)]
 
 problem11 :: Integer
 problem11 = maximum [maxLine problem11Const, maxLine $ transpose problem11Const, maxDiag problem11Const, maxDiag $ reverse problem11Const]

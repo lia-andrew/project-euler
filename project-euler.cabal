@@ -95,7 +95,8 @@ executable project-euler
 
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.18.3.0,
-                      project-euler
+                      project-euler,
+                      containers
 
     -- Directories containing source files.
     hs-source-dirs:   app

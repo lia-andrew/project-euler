@@ -1,7 +1,16 @@
 module Main where
 
 import ReExport
-import Prelude (IO, print)
+import Data.Map (lookup)
+import Prelude hiding (lookup)
+import System.IO (stdout, hFlush)
 
 main :: IO ()
-main = print problem12
+main = do
+    putStr "Enter puzzle number: "
+    hFlush stdout
+    input <- getLine
+    putStrLn . extractVal . lookup input $ allPuzzles
+  where
+    extractVal (Just x) = show x
+    extractVal Nothing = "That puzzle has not been implemented"
