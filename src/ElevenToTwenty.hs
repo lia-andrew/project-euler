@@ -26,4 +26,7 @@ problem12 = head . filter (\x -> numFactors x > 500) . triangleNums 1 $ 2
   numFactors = length . nub . map product . subsequences . primeFactorize 2
 
 problem13 :: Integer
-problem13 = sum problem13Const
+problem13 = total `div` (10 ^ (numDigits - 9))
+  where
+    total = sum problem13Const
+    (numDigits, _) = properFraction $ logBase 10 $ fromIntegral total
