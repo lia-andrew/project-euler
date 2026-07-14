@@ -63,7 +63,8 @@ library
     exposed-modules:  ReExport
 
     -- Modules included in this library but not exported.
-    other-modules:    FirstTen,
+    other-modules:    OneToTen,
+                      ElevenToTwenty
                       Util
 
     -- LANGUAGE extensions used by modules in this package.

@@ -1,4 +1,6 @@
 module ReExport (
-  module FirstTen) where
+  module OneToTen,
+  module ElevenToTwenty) where
 
-import FirstTen
+import OneToTen
+import ElevenToTwenty
