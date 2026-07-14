@@ -1,7 +1,7 @@
 module Main where
 
-import ReExport
 import Data.Map (lookup)
+import ReExport (allPuzzles)
 import Prelude hiding (lookup)
 import System.IO (stdout, hFlush)
 

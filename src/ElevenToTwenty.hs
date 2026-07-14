@@ -1,11 +1,11 @@
 module ElevenToTwenty (elevenToTwenty) where
 
-import Util (problem11Const, primeFactorize)
 import Data.List (transpose, subsequences, nub)
 import qualified Data.Map as Map (fromList, Map)
+import Util (problem11Const, primeFactorize, problem13Const)
 
 elevenToTwenty :: Map.Map String Integer
-elevenToTwenty = Map.fromList [("11", problem11), ("12", problem12)]
+elevenToTwenty = Map.fromList [("11", problem11), ("12", problem12), ("13", problem13)]
 
 problem11 :: Integer
 problem11 = maximum [maxLine problem11Const, maxLine $ transpose problem11Const, maxDiag problem11Const, maxDiag $ reverse problem11Const]
@@ -24,3 +24,6 @@ problem12 = head . filter (\x -> numFactors x > 500) . triangleNums 1 $ 2
   where
   triangleNums x y = x : triangleNums (x + y) (y + 1)
   numFactors = length . nub . map product . subsequences . primeFactorize 2
+
+problem13 :: Integer
+problem13 = sum problem13Const
