@@ -2,10 +2,10 @@ module ElevenToTwenty (elevenToTwenty) where
 
 import Data.List (transpose, subsequences, nub, foldl')
 import Util (problem11Const, primeFactorize, problem13Const)
-import qualified Data.Map as Map (fromList, Map, lookup, insert, singleton, foldrWithKey')
+import qualified Data.Map as Map (fromList, Map, lookup, insert, singleton, foldrWithKey', empty)
 
 elevenToTwenty :: Map.Map String Integer
-elevenToTwenty = Map.fromList [("11", problem11), ("12", problem12), ("13", problem13), ("14", problem14)]
+elevenToTwenty = Map.fromList [("11", problem11), ("12", problem12), ("13", problem13), ("14", problem14), ("15", problem15)]
 
 problem11 :: Integer
 problem11 = maximum [maxLine problem11Const, maxLine $ transpose problem11Const, maxDiag problem11Const, maxDiag $ reverse problem11Const]
@@ -43,3 +43,20 @@ problem14 = fst . Map.foldrWithKey' longestPath (0, 0) . foldl' (\cache x -> col
     longestPath key val prev@(_, prevVal)
       | val > prevVal = (key, val)
       | otherwise = prev
+
+problem15 :: Integer -- puzzle is symmetric, so you could compute only half then multiply by 2
+problem15 = fst $ countPaths (0, 0) Map.empty
+  where
+    countPaths pos@(x, y) cache = case Map.lookup pos cache of
+      Just cachedCount -> (cachedCount, cache)
+      Nothing -> (newCount, newCache)
+      where
+        countChildPath childPos edgeCheck childCache
+          | edgeCheck == 19 = (1, childCache)
+          | otherwise = case Map.lookup childPos childCache of
+            Just cachedCount -> (cachedCount, childCache)
+            Nothing -> countPaths childPos childCache
+        (rightCount, rightCache) = countChildPath (x + 1, y) x cache
+        (downCount, downCache) = countChildPath (x, y + 1) y rightCache
+        newCount = rightCount + downCount
+        newCache = Map.insert pos newCount downCache
