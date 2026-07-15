@@ -1,6 +1,5 @@
 module OneToTen (oneToTen) where
 
-import Data.Bits ((.&.))
 import qualified Data.Set as Set (fromList)
 import Util (primeFactorize, primes, problem8Const)
 import qualified Data.Map as Map (empty, insert, toList, unionWith, fromList, Map)
@@ -15,7 +14,7 @@ problem2 :: Integer
 problem2 = sum . takeWhile (<= 4000000) . evenFibonacci 1 $ 1
   where
     evenFibonacci x y
-      | next .&. 1 == 0 = next : recur
+      | even next = next : recur
       | otherwise = recur
       where
         next = x + y
