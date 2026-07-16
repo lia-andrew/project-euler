@@ -1,11 +1,11 @@
-module OneToTen (oneToTen) where
+module From1To10 (from1To10) where
 
 import qualified Data.Set as Set (fromList)
 import Util (primeFactorize, primes, problem8Const)
 import qualified Data.Map as Map (empty, insert, toList, unionWith, fromList, Map)
 
-oneToTen :: Map.Map String Integer
-oneToTen = Map.fromList [("1", problem1), ("2", problem2), ("3", problem3), ("4", problem4), ("5", problem5), ("6", problem6), ("7", problem7), ("8", problem8), ("9", problem9), ("10", problem10)]
+from1To10 :: Map.Map String Integer
+from1To10 = Map.fromList [("1", problem1), ("2", problem2), ("3", problem3), ("4", problem4), ("5", problem5), ("6", problem6), ("7", problem7), ("8", problem8), ("9", problem9), ("10", problem10)]
 
 problem1 :: Integer
 problem1 = sum . filter (\x -> x `mod` 3 == 0 || x `mod` 5 == 0) . takeWhile (< 1000) $ [1..]

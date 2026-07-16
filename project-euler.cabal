@@ -63,8 +63,8 @@ library
     exposed-modules:  ReExport
 
     -- Modules included in this library but not exported.
-    other-modules:    OneToTen,
-                      ElevenToTwenty,
+    other-modules:    From1To10,
+                      From11To20,
                       Util
 
     -- LANGUAGE extensions used by modules in this package.
