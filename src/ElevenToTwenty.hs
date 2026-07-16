@@ -1,8 +1,7 @@
 module ElevenToTwenty (elevenToTwenty) where
 
-import Data.Char (digitToInt)
 import Data.List (transpose, subsequences, nub, foldl')
-import Util (problem11Const, primeFactorize, problem13Const)
+import Util (problem11Const, primeFactorize, problem13Const, toList)
 import qualified Data.Map as Map (fromList, Map, lookup, insert, singleton, foldrWithKey', empty)
 
 elevenToTwenty :: Map.Map String Integer
@@ -23,8 +22,8 @@ problem11 = maximum [maxLine problem11Const, maxLine $ transpose problem11Const,
 problem12 :: Integer
 problem12 = head . filter (\x -> numFactors x > 500) . triangleNums 1 $ 2
   where
-  triangleNums x y = x : triangleNums (x + y) (y + 1)
-  numFactors = length . nub . map product . subsequences . primeFactorize 2
+    triangleNums x y = x : triangleNums (x + y) (y + 1)
+    numFactors = length . nub . map product . subsequences . primeFactorize 2
 
 problem13 :: Integer
 problem13 = total `div` (10 ^ (numDigits - 9))
@@ -50,17 +49,21 @@ problem15 = fst . countPaths (0, 0) $ Map.empty
   where
     countPaths pos@(x, y) cache = case Map.lookup pos cache of
       Just cachedCount -> (cachedCount, cache)
-      Nothing -> (newCount, newCache)
-      where
-        countChildPath childPos edgeCheck childCache
-          | edgeCheck == 19 = (1, childCache)
-          | otherwise = case Map.lookup childPos childCache of
-            Just cachedCount -> (cachedCount, childCache)
-            Nothing -> countPaths childPos childCache
-        (rightCount, rightCache) = countChildPath (x + 1, y) x cache
-        (downCount, downCache) = countChildPath (x, y + 1) y rightCache
-        newCount = rightCount + downCount
-        newCache = Map.insert pos newCount downCache
+      Nothing -> (count', cache')
+        where
+          (rightCount, rightCache) = countChildPath (x + 1, y) x cache
+          (downCount, downCache) = countChildPath (x, y + 1) y rightCache
+          count' = rightCount + downCount
+          cache' = Map.insert pos count' downCache
+    countChildPath childPos edgeCheck childCache
+      | edgeCheck == 19 = (1, childCache)
+      | otherwise = case Map.lookup childPos childCache of
+        Just cachedCount -> (cachedCount, childCache)
+        Nothing -> countPaths childPos childCache
+
+-- Can be viewed as combinatorics, but this is actually slower than the above implementation, even without taking advantage of symmetry
+-- problem15' :: Integer
+-- problem15' = product [1..40] `div` (product [1..20] ^ 2)
 
 problem16 :: Integer
-problem16 = sum . map (toInteger . digitToInt) . show $ 2 ^ 1000
+problem16 = sum . toList $ 2 ^ 1000

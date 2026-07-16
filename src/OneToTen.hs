@@ -14,11 +14,11 @@ problem2 :: Integer
 problem2 = sum . takeWhile (<= 4000000) . evenFibonacci 1 $ 1
   where
     evenFibonacci x y
-      | even next = next : recur
+      | even x' = x' : recur
       | otherwise = recur
       where
-        next = x + y
-        recur = evenFibonacci y next
+        x' = x + y
+        recur = evenFibonacci y x'
 
 problem3 :: Integer
 problem3 = maximum . primeFactorize 2 $ 600851475143
