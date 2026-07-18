@@ -1,11 +1,11 @@
 module From11To20 (from11To20) where
 
 import Data.List (transpose, subsequences, nub, foldl')
-import Util (problem11Const, primeFactorize, problem13Const, toList)
-import qualified Data.Map as Map (fromList, Map, lookup, insert, singleton, foldrWithKey', empty)
+import qualified Data.Map as Map (Map, lookup, insert, singleton, foldrWithKey', empty, fromAscList)
+import Util (problem11Const, primeFactorize, problem13Const, toList, problem17ConstLess20, problem17ConstTens)
 
 from11To20 :: Map.Map String Integer
-from11To20 = Map.fromList [("11", problem11), ("12", problem12), ("13", problem13), ("14", problem14), ("15", problem15), ("16", problem16)]
+from11To20 = Map.fromAscList [("11", problem11), ("12", problem12), ("13", problem13), ("14", problem14), ("15", problem15), ("16", problem16), ("17", problem17)]
 
 problem11 :: Integer
 problem11 = maximum [maxLine problem11Const, maxLine $ transpose problem11Const, maxDiag problem11Const, maxDiag $ reverse problem11Const]
@@ -67,3 +67,22 @@ problem15 = fst . countPaths (0, 0) $ Map.empty
 
 problem16 :: Integer
 problem16 = sum . toList $ 2 ^ 1000
+
+problem17 :: Integer
+problem17 = sum . map countChars $ [1..1000]
+  where
+    countChars x
+      | x < 20 = problem17ConstLess20 !! x
+      | x < 100 = mid
+      | x < 1000 = high
+      | otherwise = 11
+      where
+        (lowRest, lowRem) = divMod x 10
+        (midRest, midRem) = divMod lowRest 10
+        mid
+          | midRem > 1 = (problem17ConstTens !! midRem) + (problem17ConstLess20 !! lowRem)
+          | otherwise = problem17ConstLess20 !! (midRem * 10 + lowRem)
+        and
+          | mid > 0 = mid + 3
+          | otherwise = 0
+        high = (problem17ConstLess20 !! midRest) + 7 + and
